@@ -15,5 +15,3 @@ Content-Type: application/json
 ###GET ALL AUTHORS
 
 GET http://localhost:3000/authors
-
-###
