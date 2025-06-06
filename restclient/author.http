@@ -1,0 +1,19 @@
+###   create a new author
+
+
+POST  HTTP://localhost:3000/authors
+Content-Type: application/json
+
+{
+     " name":"John  Brian",
+      "book_title":"The unique",
+      "origin":"England"
+}
+
+
+
+###GET ALL AUTHORS
+
+GET http://localhost:3000/authors
+
+###

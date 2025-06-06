@@ -13,10 +13,6 @@ import {
   Delete,
 } from '@nestjs/common';
 
-// import { Books } from './interfaces/books.interface'
-// import { createBooksDto } from './dtos/create.books.dtos';
-// import { updateAuthorsDto } from './dtos/update.Authors.dtos';
-// import { BooksService } from './books.service';
 import { AuthorsService } from './authors.service';
 import { createauthorsDto } from './dtos/createauthor.dtos';
 import { updateauthorsDto } from './dtos/updateauthor.dtos';
@@ -57,7 +53,7 @@ export class AuthorsController {
       let authors: Authors[];
 
       if (available === 'true') {
-        authors = this.authorsService.findAvailable();
+        authors = this.authorsService.findAll();
       } else {
         authors = this.authorsService.findAll();
       }
@@ -87,13 +83,13 @@ export class AuthorsController {
       const user = this.authorsService.findOne(id);
       return {
         success: true,
-        message: ' book found',
+        message: ' author found',
         data: user,
       };
     } catch (error) {
       return {
         success: false,
-        message: 'book Not found',
+        message: 'author Not found',
         error: error instanceof Error ? error.message : 'Unknown Error',
       };
     }
@@ -101,16 +97,16 @@ export class AuthorsController {
 
   /**
    * Find book by title
-   * GET /users/title/:title
+   * GET /authors/title/:title
    */
   @Get('title/:title')
   findBytitle(@Param('title') title: string): ApiResponse<Authors> {
     try {
-      const Books = this.authorsService.findBytitle(title);
+      const authors = this.authorsService.findBytitle(title);
       return {
         success: true,
-        message: 'book By title found',
-        data: Books,
+        message: 'author By title found',
+        data: authors,
       };
     } catch (error) {
       return {
@@ -122,8 +118,8 @@ export class AuthorsController {
   }
 
   /**
-   * Update book 
-   * PATCH users/:id
+   * Update author
+   * PATCH author/:id
    */
   @Patch(':id')
   update(
@@ -134,13 +130,13 @@ export class AuthorsController {
       const user = this.authorsService.update(id, data);
       return {
         success: true,
-        message: 'book info updated succesfully',
+        message: 'author info updated succesfully',
         data: user,
       };
     } catch (error) {
       return {
         success: false,
-        message: 'Failed to update books info',
+        message: 'Failed to update author info',
         error: error instanceof Error ? error.message : 'Unknown Error',
       };
     }
@@ -161,14 +157,14 @@ export class AuthorsController {
     } catch (error) {
       return {
         success: false,
-        message: 'Failed to remove book',
+        message: 'Failed to remove author',
         error: error instanceof Error ? error.message : ' Unknown error',
       };
     }
   }
 
   /**
-   * Permanently delete a book (hard delete)
+   * Permanently delete an author(hard delete)
    * DELETE /books/:id/permanent
    */
   @Delete(':id/permanent')
@@ -183,7 +179,7 @@ export class AuthorsController {
     } catch (error) {
       return {
         success: false,
-        message: 'Failed to hard delete book',
+        message: 'Failed to hard delete author',
         error: error instanceof Error ? error.message : 'Unknown Error',
       };
     }
