@@ -1,0 +1,17 @@
+### CREATE A NEW BOOK
+
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+         "title": "The reacher",
+      "author":"richard bonston",
+     "isAvailable":true,
+ "publishedDate": "2025-05-23"
+ }
+
+####      GET ALL USERS
+GET http://localhost:3000/books
+
+###
+GET http://localhost:3000/books?isAvailable=true

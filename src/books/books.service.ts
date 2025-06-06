@@ -7,6 +7,13 @@ import { rename } from 'fs';
 
 @Injectable()
 export class BooksService {
+  findBytitle(title: string): Books {
+  const book = this.books.find((book) => book.title === title);
+  if (!book) {
+    throw new NotFoundException(`Book with title "${title}" not found`);
+  }
+  return book;
+}
       private books: Books[]=[
             {   
                id:1,
@@ -26,9 +33,9 @@ export class BooksService {
 
       private nextId = 3;
 
-      create( id:number, data: createBooksDto): Books {
+      create( data: createBooksDto): Books {
         const existingBook = this.books.find(
-  (book) => book.title === data.title && book.id !== id
+  (book) => book.title === data.title 
 );
 
             if(existingBook){
@@ -65,7 +72,7 @@ findOne(id:number): Books{
 
 }
 findByAuthor(author: string): Books{
-      const book = this.books.find((books) => book?.
+      const book = this.books.find((books) => book.
       author===author);
       if(!book){
             throw  new NotFoundException(`book wrote by author${author} not found`);
@@ -107,7 +114,7 @@ update(id:number, data:updateBooksDto): Books {
       }
     const updatedBooks = {
       ...this.books[bookIndex],
-      data,
+     ... data,
 
     };
     this.books[bookIndex] = updatedBooks;
@@ -119,7 +126,7 @@ update(id:number, data:updateBooksDto): Books {
 
     remove(id:number): {message:string} {
       const bookIndex = this.books.findIndex((book) => book.id === id);
-      if(bookIndex===1){
+      if(bookIndex===-1){
             throw new NotFoundException(`book with id${id} not found`);
       }
       this.books[bookIndex].isAvailable = false;
